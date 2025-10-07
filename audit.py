@@ -1,12 +1,18 @@
+import json
+from modules import seoptimer
 from utils import report, emailer
 
-site = "https://connectheor.com"
+# Load config
+with open("config.json") as f:
+    config = json.load(f)
 
-seo_data = {
-    "score": 84,
-    "issues": ["Missing meta description", "Multiple H1 tags", "Low keyword density"]
-}
+site = config["websites"][0]
+recipient = config["email"]["to"]
 
+# 🔍 SEO Audit (SEOptimer)
+seo_data = seoptimer.scan(site)
+
+# 🚀 Performance Data (dummy for now)
 performance_data = {
     "pagespeed": "Mobile: 58, Desktop: 84",
     "gtmetrix": "Performance: 61%, Structure: 81%",
@@ -17,6 +23,7 @@ performance_data = {
     ]
 }
 
+# 🔐 Security Data (dummy for now)
 security_data = {
     "findings": [
         "No malware found",
@@ -27,5 +34,8 @@ security_data = {
     ]
 }
 
+# 🧾 Generate PDF Report
 report_path = report.generate(site, seo_data, performance_data, security_data)
-emailer.send(report_path, "kunal.hriday@connectheor.com")
+
+# 📤 Send Email
+emailer.send(report_path, recipient)
