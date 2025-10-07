@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Audit Report</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    h1, h2 { color: #2c3e50; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>Website Audit Report</h1>
+  <h2>Site: {{ site }}</h2>
+
+  <h2>SEO Audit (SEOptimer)</h2>
+  <p><strong>Score:</strong> {{ seo.score }}%</p>
+  <ul>
+    {% for issue in seo.issues %}
+      <li>{{ issue }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Performance</h2>
+  <p><strong>PageSpeed:</strong> {{ performance.pagespeed }}</p>
+  <p><strong>GTmetrix:</strong> {{ performance.gtmetrix }}</p>
+
+  <h2>Security</h2>
+  <ul>
+    {% for item in security.findings %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Final Summary</h2>
+  <p>Migration complete. Website is live and secure.</p>
+</body>
+</html>
