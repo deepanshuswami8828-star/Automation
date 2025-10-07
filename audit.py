@@ -1,7 +1,6 @@
 import json
-import utils.report as report
-import utils.emailer as emailer
-import modules.seoptimer as seoptimer
+from utils import report, emailer
+from modules import seoptimer
 
 # Load config
 with open("config.json") as f:
@@ -13,7 +12,7 @@ recipient = config["email"]["to"]
 # 🔍 SEO Audit
 seo_data = seoptimer.scan(site)
 
-# 🚀 Performance (dummy for now)
+# 🚀 Performance (dummy)
 performance_data = {
     "pagespeed": "Mobile: 58, Desktop: 84",
     "gtmetrix": "Performance: 61%, Structure: 81%",
@@ -24,7 +23,7 @@ performance_data = {
     ]
 }
 
-# 🔐 Security (dummy for now)
+# 🔐 Security (dummy)
 security_data = {
     "findings": [
         "No malware found",
