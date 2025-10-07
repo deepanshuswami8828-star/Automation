@@ -1,21 +1,31 @@
-import json
-from utils import emailer
+from utils import report, emailer
 
-# Load config
-with open("config.json") as f:
-    config = json.load(f)
+site = "https://connectheor.com"
 
-# Simulate audit logic
-for site in config["websites"]:
-    print(f"Auditing: {site}")
-    # Later: call SEO, deadlink, performance modules here
+seo_data = {
+    "score": 84,
+    "issues": ["Missing meta description", "Multiple H1 tags", "Low keyword density"]
+}
 
-# Simulate report path
-report_path = "dummy_report.pdf"
+performance_data = {
+    "pagespeed": "Mobile: 58, Desktop: 84",
+    "gtmetrix": "Performance: 61%, Structure: 81%",
+    "regions": [
+        {"name": "US West", "score": "41/100", "fcp": "4.6s", "lcp": "12s"},
+        {"name": "Japan", "score": "53/100", "fcp": "4.9s", "lcp": "9.8s"},
+        {"name": "Australia", "score": "56/100", "fcp": "5s", "lcp": "10.9s"}
+    ]
+}
 
-# Create a dummy file for testing
-with open(report_path, "wb") as f:
-    f.write(b"%PDF-1.4\n%Dummy PDF content for testing\n%%EOF")
+security_data = {
+    "findings": [
+        "No malware found",
+        "SSL certificate valid",
+        "DeadLinkChecker: 10 broken links",
+        "UpGuard: Passed",
+        "Sucuri: Clean"
+    ]
+}
 
-# Send email
-emailer.send(report_path, config["email"]["to"])
+report_path = report.generate(site, seo_data, performance_data, security_data)
+emailer.send(report_path, "kunal.hriday@connectheor.com")
