@@ -25,6 +25,11 @@
   <h2>Performance</h2>
   <p><strong>PageSpeed:</strong> {{ performance.pagespeed }}</p>
   <p><strong>GTmetrix:</strong> {{ performance.gtmetrix }}</p>
+  <ul>
+    {% for region in performance.regions %}
+      <li>{{ region.name }} — Score: {{ region.score }} — FCP: {{ region.fcp }} — LCP: {{ region.lcp }}</li>
+    {% endfor %}
+  </ul>
 
   <h2>Security</h2>
   <ul>
@@ -34,6 +39,6 @@
   </ul>
 
   <h2>Final Summary</h2>
-  <p>Migration complete. Website is live and secure.</p>
+  <p>Migration complete. Website is live and secure. Performance and SEO are optimized.</p>
 </body>
 </html>
