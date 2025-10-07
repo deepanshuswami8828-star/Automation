@@ -9,8 +9,6 @@ def scan(site):
         return {"score": 0, "issues": ["Failed to fetch SEOptimer data"]}
 
     soup = BeautifulSoup(response.text, "html.parser")
-
-    # Try to extract score and issues (this is a placeholder — SEOptimer may change layout)
     score_tag = soup.find("div", class_="score")
     score = int(score_tag.text.strip().replace("%", "")) if score_tag else 0
 
