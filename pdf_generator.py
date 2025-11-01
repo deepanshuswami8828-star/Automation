@@ -61,31 +61,5 @@ def create_pdf(data):
         "Next steps: monitor SEO scores, fix broken links, and optimize performance."
     ])
 
-    draw_section("7. Roastd Audit Summary", [
-        f"Score: {data.get('roastd', {}).get('score', 'N/A')}",
-        f"Issues Found: {data.get('roastd', {}).get('issues', 'N/A')}"
-    ], "roastd_summary.png")
-
-    draw_section("8. SEOmator Landing Page Audit", [
-        f"SEO Score: {data.get('seomator', {}).get('seo_score', 'N/A')}",
-        f"Mobile Friendliness: {data.get('seomator', {}).get('mobile', 'N/A')}"
-    ], "seomator_landing.png")
-
-    draw_section("9. SEO Site Checker Health Report", [
-        f"Health Score: {data.get('sitechecker', {}).get('health', 'N/A')}",
-        f"Broken Links: {data.get('sitechecker', {}).get('broken_links', 'N/A')}"
-    ], "sitechecker_health.png")
-
-    draw_section("10. Google PageSpeed Performance", [
-        f"Mobile Score: {data.get('pagespeed', {}).get('mobile', 'N/A')}",
-        f"Desktop Score: {data.get('pagespeed', {}).get('desktop', 'N/A')}"
-    ], "pagespeed_mobile.png")
-
-    draw_section("11. UpGuard Security Scan", [
-        f"SSL: {data.get('upguard', {}).get('ssl', 'N/A')}",
-        f"Malware: {data.get('upguard', {}).get('malware', 'N/A')}",
-        f"Leaks: {data.get('upguard', {}).get('leaks', 'N/A')}"
-    ], "upguard_scan.png")
-
     c.save()
     return filename
