@@ -5,8 +5,7 @@ audit_data = {
     "seo": "Checked",
     "migration": "Completed from SiteGround to Hostinger",
     "gtmetrix": {"grade": "D", "performance": "61%", "structure": "81%"},
-    "pagespeed": {"mobile": 58, "desktop": 84},
+    "seo_tools": ["SiteGuru", "Labrika", "Sitechecker"],
     "security": "No malware found",
-    "deadlinks": 10,
-    "seo_tools": ["SiteGuru", "Labrika", "Sitechecker"]
+    "deadlinks": 10
 }
