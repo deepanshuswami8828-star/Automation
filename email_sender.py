@@ -13,9 +13,13 @@ def send_email(pdf_path):
     msg["To"] = receiver
     msg.set_content("Please find the attached audit report.")
 
-    with open(pdf_path, "rb") as f:
-        msg.add_attachment(f.read(), maintype="application", subtype="pdf", filename=pdf_path)
+    try:
+        with open(pdf_path, "rb") as f:
+            msg.add_attachment(f.read(), maintype="application", subtype="pdf", filename=pdf_path)
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-        smtp.login(sender, password)
-        smtp.send_message(msg)
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(sender, password)
+            smtp.send_message(msg)
+        print("✅ Email sent to", receiver)
+    except Exception as e:
+        print("❌ Email failed:", e)
