@@ -1,1 +1,11 @@
-e
+# Clone your repo if needed
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+
+# Delete the folder
+rm -r .rrfff
+
+# Commit and push
+git add .
+git commit -m "Delete .rrfff folder"
+git push
