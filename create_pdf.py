@@ -6,7 +6,6 @@ def create_pdf(data):
     filename = "connectheor_audit.pdf"
     c = canvas.Canvas(filename, pagesize=A4)
 
-    # Header
     c.setFont("Helvetica-Bold", 16)
     c.drawString(50, 800, "ConnectHEOR Website Migration and Performance Report")
     c.setFont("Helvetica", 12)
