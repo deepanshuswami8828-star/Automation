@@ -1,0 +1,32 @@
+name: Weekly Audit Report
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'  # Runs every Monday at 9:30 AM IST (4:00 UTC)
+  workflow_dispatch:      # Allows manual trigger from GitHub UI
+
+jobs:
+  run-audit:
+    runs-on: ubuntu-latest
+
+    env:
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+      GTMETRIX_API: ${{ secrets.GTMETRIX_API }}
+      PSI_API: ${{ secrets.PSI_API }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run audit script
+        run: python audit_runner.py
