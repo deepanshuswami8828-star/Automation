@@ -1,7 +1,7 @@
-- migration.png
-- gtmetrix.png
-- seo_summary.png
-- upguard.png
-- lighthouse_scores.png
-
+assets/
+├── roastd_summary.png
+├── seomator_landing.png
+├── sitechecker_health.png
+├── pagespeed_mobile.png
+├── upguard_scan.png
 
