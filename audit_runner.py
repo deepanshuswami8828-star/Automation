@@ -1,4 +1,4 @@
-from pdf_generator import create_pdf
+from create_pdf.create_pdf import create_pdf
 from email_sender import send_email
 
 def run_audit():
@@ -11,7 +11,12 @@ def run_audit():
         "gtmetrix": {"grade": "D", "performance": "61%", "structure": "81%"},
         "seo_tools": ["SiteGuru", "Labrika", "Sitechecker"],
         "security": "No malware found",
-        "deadlinks": 10
+        "deadlinks": 10,
+        "roastd": {"score": "82%", "issues": 5},
+        "seomator": {"seo_score": "78%", "mobile": "Good"},
+        "sitechecker": {"health": "74%", "broken_links": 3},
+        "pagespeed": {"mobile": "65", "desktop": "88"},
+        "upguard": {"ssl": "Valid", "malware": "None", "leaks": "No"}
     }
 
     pdf_path = create_pdf(audit_data)
