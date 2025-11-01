@@ -1,65 +1,19 @@
-from reportlab.lib.pagesizes import A4
-from reportlab.pdfgen import canvas
-from reportlab.lib.utils import ImageReader
-from datetime import datetime
-import os
+draw_section("7. Roastd Audit Summary", [
+    "AI-powered insights from Roastd audit"
+], "roastd_summary.png")
 
-def create_pdf(data):
-    filename = "connectheor_audit.pdf"
-    c = canvas.Canvas(filename, pagesize=A4)
+draw_section("8. SEOmator Landing Page Audit", [
+    "SEO score, mobile friendliness, and keyword tracking"
+], "seomator_landing.png")
 
-    # Header
-    c.setFont("Helvetica-Bold", 16)
-    c.drawString(50, 800, "ConnectHEOR Website Migration and Performance Report")
-    c.setFont("Helvetica", 12)
-    c.drawString(50, 780, f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    c.drawString(50, 765, f"Website: {data.get('site', 'N/A')}")
+draw_section("9. SEO Site Checker Health Report", [
+    "Technical SEO, content gaps, and metadata audit"
+], "sitechecker_health.png")
 
-    y = 740
+draw_section("10. Google PageSpeed Performance", [
+    "Mobile and desktop performance scores from PageSpeed Insights"
+], "pagespeed_mobile.png")
 
-    def draw_section(title, lines, image_name=None):
-        nonlocal y
-        c.setFont("Helvetica-Bold", 14)
-        c.drawString(50, y, title)
-        y -= 20
-        c.setFont("Helvetica", 12)
-        for line in lines:
-            c.drawString(50, y, line)
-            y -= 20
-        if image_name and os.path.exists(f"assets/{image_name}"):
-            y -= 140
-            c.drawImage(ImageReader(f"assets/{image_name}"), 50, y, width=500, height=120)
-            y -= 20
-
-    draw_section("1. Migration Overview", [
-        f"Migration Status: {data.get('migration', 'N/A')}"
-    ], "migration.png")
-
-    draw_section("2. Website Accessibility Across All Locations", [
-        "Status: Accessible globally"
-    ], "lighthouse_scores.png")
-
-    draw_section("3. Performance Testing", [
-        f"GTmetrix Grade: {data.get('gtmetrix', {}).get('grade', 'N/A')}",
-        f"Performance: {data.get('gtmetrix', {}).get('performance', 'N/A')}",
-        f"Structure: {data.get('gtmetrix', {}).get('structure', 'N/A')}"
-    ], "gtmetrix.png")
-
-    draw_section("4. SEO Audit", [
-        f"SEO Status: {data.get('seo', 'N/A')}",
-        f"Tools Used: {', '.join(data.get('seo_tools', []))}"
-    ], "seo_summary.png")
-
-    draw_section("5. Security Audit", [
-        f"Status: {data.get('security', 'N/A')}",
-        f"Dead Links Found: {data.get('deadlinks', 'N/A')}"
-    ], "upguard.png")
-
-    draw_section("6. Final Summary", [
-        "Website migration and live status checks are completed successfully.",
-        "Performance metrics indicate optimal loading speed and user experience.",
-        "Next steps: monitor SEO scores, fix broken links, and optimize performance."
-    ])
-
-    c.save()
-    return filename
+draw_section("11. UpGuard Security Scan", [
+    "SSL, malware, and data leak checks"
+], "upguard_scan.png")
