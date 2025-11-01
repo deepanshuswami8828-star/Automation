@@ -1,26 +1,12 @@
-from pdf_generator import create_pdf
-from email_sender import send_email
-from datetime import datetime
-
-def run_audit():
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(f"🕒 Starting audit at {timestamp}")
-
-    audit_data = {
-        "site": "connectheor.com",
-        "status": "Live",
-        "performance": "Good",
-        "seo": "Checked",
-        "timestamp": timestamp
-    }
-
-    print("📄 Generating PDF report...")
-    pdf_path = create_pdf(audit_data)
-    print(f"✅ PDF generated: {pdf_path}")
-
-    print("📬 Sending email with report...")
-    send_email(pdf_path)
-    print("✅ Email sent successfully.")
-
-if __name__ == "__main__":
-    run_audit()
+audit_data = {
+    "site": "connectheor.com",
+    "status": "Live",
+    "performance": "Good",
+    "seo": "Checked",
+    "migration": "Completed from SiteGround to Hostinger",
+    "gtmetrix": {"grade": "D", "performance": "61%", "structure": "81%"},
+    "pagespeed": {"mobile": 58, "desktop": 84},
+    "security": "No malware found",
+    "deadlinks": 10,
+    "seo_tools": ["SiteGuru", "Labrika", "Sitechecker"]
+}
