@@ -12,7 +12,6 @@ def send_email(pdf_path):
     print(f"Receiver: {receiver}")
     print(f"PDF Path: {pdf_path}")
 
-    # Create the email message
     msg = EmailMessage()
     msg["Subject"] = "Weekly Audit Report - ConnectHEOR"
     msg["From"] = sender
@@ -20,7 +19,6 @@ def send_email(pdf_path):
     msg.set_content("Please find the attached audit report.")
 
     try:
-        # Attach the PDF
         with open(pdf_path, "rb") as f:
             msg.add_attachment(
                 f.read(),
@@ -30,7 +28,6 @@ def send_email(pdf_path):
             )
         print("📎 PDF attached successfully.")
 
-        # Send the email via Gmail SMTP
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
             smtp.login(sender, password)
             print("🔐 SMTP login successful.")
