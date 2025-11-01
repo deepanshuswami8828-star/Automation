@@ -17,73 +17,49 @@ def create_pdf(data):
 
     y = 740
 
-    # Section 1: Migration Overview
-    c.setFont("Helvetica-Bold", 14)
-    c.drawString(50, y, "1. Migration Overview")
-    y -= 20
-    c.setFont("Helvetica", 12)
-    c.drawString(50, y, f"Migration Status: {data.get('migration', 'N/A')}")
-    y -= 140
-    if os.path.exists("assets/migration.png"):
-        c.drawImage(ImageReader("assets/migration.png"), 50, y, width=500, height=120)
+    def draw_section(title, lines, image_name=None):
+        nonlocal y
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(50, y, title)
+        y -= 20
+        c.setFont("Helvetica", 12)
+        for line in lines:
+            c.drawString(50, y, line)
+            y -= 20
+        if image_name and os.path.exists(f"assets/{image_name}"):
+            y -= 140
+            c.drawImage(ImageReader(f"assets/{image_name}"), 50, y, width=500, height=120)
+            y -= 20
 
-    # Section 2: Global Accessibility
-    y -= 160
-    c.setFont("Helvetica-Bold", 14)
-    c.drawString(50, y, "2. Website Accessibility Across All Locations")
-    y -= 20
-    c.setFont("Helvetica", 12)
-    c.drawString(50, y, "Status: Accessible globally")
-    y -= 140
-    if os.path.exists("assets/lighthouse_scores.png"):
-        c.drawImage(ImageReader("assets/lighthouse_scores.png"), 50, y, width=500, height=120)
+    draw_section("1. Migration Overview", [
+        f"Migration Status: {data.get('migration', 'N/A')}"
+    ], "migration.png")
 
-    # Section 3: Performance Testing
-    y -= 160
-    c.setFont("Helvetica-Bold", 14)
-    c.drawString(50, y, "3. Performance Testing")
-    y -= 20
-    c.setFont("Helvetica", 12)
-    c.drawString(50, y, f"GTmetrix Grade: {data.get('gtmetrix', {}).get('grade', 'N/A')}")
-    c.drawString(50, y - 20, f"Performance: {data.get('gtmetrix', {}).get('performance', 'N/A')}")
-    c.drawString(50, y - 40, f"Structure: {data.get('gtmetrix', {}).get('structure', 'N/A')}")
-    y -= 160
-    if os.path.exists("assets/gtmetrix.png"):
-        c.drawImage(ImageReader("assets/gtmetrix.png"), 50, y, width=500, height=120)
+    draw_section("2. Website Accessibility Across All Locations", [
+        "Status: Accessible globally"
+    ], "lighthouse_scores.png")
 
-    # Section 4: SEO Audit
-    y -= 160
-    c.setFont("Helvetica-Bold", 14)
-    c.drawString(50, y, "4. SEO Audit")
-    y -= 20
-    c.setFont("Helvetica", 12)
-    c.drawString(50, y, f"SEO Status: {data.get('seo', 'N/A')}")
-    c.drawString(50, y - 20, f"Tools Used: {', '.join(data.get('seo_tools', []))}")
-    y -= 140
-    if os.path.exists("assets/seo_summary.png"):
-        c.drawImage(ImageReader("assets/seo_summary.png"), 50, y, width=500, height=120)
+    draw_section("3. Performance Testing", [
+        f"GTmetrix Grade: {data.get('gtmetrix', {}).get('grade', 'N/A')}",
+        f"Performance: {data.get('gtmetrix', {}).get('performance', 'N/A')}",
+        f"Structure: {data.get('gtmetrix', {}).get('structure', 'N/A')}"
+    ], "gtmetrix.png")
 
-    # Section 5: Security Audit
-    y -= 160
-    c.setFont("Helvetica-Bold", 14)
-    c.drawString(50, y, "5. Security Audit")
-    y -= 20
-    c.setFont("Helvetica", 12)
-    c.drawString(50, y, f"Status: {data.get('security', 'N/A')}")
-    c.drawString(50, y - 20, f"Dead Links Found: {data.get('deadlinks', 'N/A')}")
-    y -= 140
-    if os.path.exists("assets/upguard.png"):
-        c.drawImage(ImageReader("assets/upguard.png"), 50, y, width=500, height=120)
+    draw_section("4. SEO Audit", [
+        f"SEO Status: {data.get('seo', 'N/A')}",
+        f"Tools Used: {', '.join(data.get('seo_tools', []))}"
+    ], "seo_summary.png")
 
-    # Section 6: Final Summary
-    y -= 160
-    c.setFont("Helvetica-Bold", 14)
-    c.drawString(50, y, "6. Final Summary")
-    y -= 20
-    c.setFont("Helvetica", 12)
-    c.drawString(50, y, "Website migration and live status checks are completed successfully.")
-    c.drawString(50, y - 20, "Performance metrics indicate optimal loading speed and user experience.")
-    c.drawString(50, y - 40, "Next steps: monitor SEO scores, fix broken links, and optimize performance.")
+    draw_section("5. Security Audit", [
+        f"Status: {data.get('security', 'N/A')}",
+        f"Dead Links Found: {data.get('deadlinks', 'N/A')}"
+    ], "upguard.png")
+
+    draw_section("6. Final Summary", [
+        "Website migration and live status checks are completed successfully.",
+        "Performance metrics indicate optimal loading speed and user experience.",
+        "Next steps: monitor SEO scores, fix broken links, and optimize performance."
+    ])
 
     c.save()
     return filename
