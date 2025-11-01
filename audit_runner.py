@@ -14,9 +14,7 @@ def run_audit():
         "deadlinks": 10
     }
 
-    print("🕒 Starting audit...")
     pdf_path = create_pdf(audit_data)
-    print(f"📄 PDF generated: {pdf_path}")
     send_email(pdf_path)
 
 if __name__ == "__main__":
