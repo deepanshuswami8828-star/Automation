@@ -3,14 +3,9 @@ from email.message import EmailMessage
 import os
 
 def send_email(pdf_path):
-    sender = os.environ.get("SMTP_USER")
-    password = os.environ.get("SMTP_PASS")
-    receiver = os.environ.get("RECEIVER_EMAIL")
-
-    print("📤 Preparing to send email...")
-    print("Sender:", sender)
-    print("Receiver:", receiver)
-    print("PDF path:", pdf_path)
+    sender = os.environ["SMTP_USER"]
+    password = os.environ["SMTP_PASS"]
+    receiver = os.environ["RECEIVER_EMAIL"]
 
     msg = EmailMessage()
     msg["Subject"] = "Weekly Audit Report - ConnectHEOR"
@@ -18,16 +13,9 @@ def send_email(pdf_path):
     msg["To"] = receiver
     msg.set_content("Please find the attached audit report.")
 
-    try:
-        with open(pdf_path, "rb") as f:
-            msg.add_attachment(f.read(), maintype="application", subtype="pdf", filename=pdf_path)
-        print("📎 PDF attached successfully.")
+    with open(pdf_path, "rb") as f:
+        msg.add_attachment(f.read(), maintype="application", subtype="pdf", filename=pdf_path)
 
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-            smtp.login(sender, password)
-            print("🔐 SMTP login successful.")
-            smtp.send_message(msg)
-            print("✅ Email sent successfully to", receiver)
-
-    except Exception as e:
-        print("❌ Email sending failed:", str(e))
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login(sender, password)
+        smtp.send_message(msg)
